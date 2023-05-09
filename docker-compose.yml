@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eddie-bot
+    restart: always
+    environment:
+      - TZ=UTC
+    volumes:
+      - ./.env.local:/app/.env.local
+
+project_name: Eddie-Bot
