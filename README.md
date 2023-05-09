@@ -1,0 +1,2 @@
+# Eddie
+My Discord Bot
