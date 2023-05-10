@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: eddie-bot
-    restart: always
+    restart: unless-stopped
     environment:
       - TZ=UTC
     volumes:
       - ./.env.local:/app/.env.local
-
-project_name: Eddie-Bot
+      - ./log.txt:/app/log.txt
+      - ./dailyChannels.csv:/app/dailyChannels.csv

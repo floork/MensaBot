@@ -10,9 +10,11 @@ RUN apt-get update && apt-get install -y git vim && \
 
 # Copy the .env.local file to the working directory
 COPY .env.local .
+COPY log.txt .
+COPY dailyChannels.csv .
 
 # Install the required Python packages
-RUN pip3 install --no-cache-dir discord.py python-dotenv beautifulsoup4 requests
+RUN pip3 install --no-cache-dir discord.py python-dotenv beautifulsoup4 requests apscheduler
 
 # Run the bot
 CMD [ "python3", "bot.py" ]
