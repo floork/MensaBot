@@ -1,5 +1,5 @@
 # Use the official Python image as the parent image
-FROM python:3.9-slim-buster
+FROM python:3.11.3-slim-bullseye
 
 # Set the working directory to /app
 WORKDIR /app
