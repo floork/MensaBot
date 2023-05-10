@@ -14,7 +14,7 @@ COPY log.txt .
 COPY dailyChannels.csv .
 
 # Install the required Python packages
-RUN pip3 install --no-cache-dir discord.py python-dotenv beautifulsoup4 requests apscheduler
+RUN pip3 install --no-cache-dir discord.py python-dotenv beautifulsoup4 requests apscheduler pytz pytz-deprecation-shim
 
 # Run the bot
 CMD [ "python3", "bot.py" ]
