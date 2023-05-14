@@ -1,20 +1,21 @@
-# Use the official Python image as the parent image
-FROM python:3.11.3-slim-bullseye
+# Use the official .NET SDK image as the parent image
+FROM mcr.microsoft.com/dotnet/sdk:7.0
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Install git and clone the Eddie-Bot repository
-RUN apt-get update && apt-get install -y git vim && \
-    git clone https://gist.githubusercontent.com/floork/cbe7ffe264c1d8da2731f0e0253a8c8d .
+# Install git
+RUN apt-get update && apt-get install -y git
+
+# Clone the Eddie-Bot repository
+RUN git clone https://github.com/just-ero/MensaPlus.Discord.git .
 
 # Copy the .env.local file to the working directory
-COPY .env.local .
-COPY log.txt .
-COPY dailyChannels.csv .
+COPY .env .
 
-# Install the required Python packages
-RUN pip3 install --no-cache-dir discord.py python-dotenv beautifulsoup4 requests apscheduler pytz pytz-deprecation-shim
+# Restore dependencies and build the application
+RUN dotnet restore
+RUN dotnet build -c Release
 
 # Run the bot
-CMD [ "python3", "bot.py" ]
+CMD [ "dotnet", "run" ]
