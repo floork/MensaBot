@@ -1,18 +1,33 @@
-# Use the official .NET SDK image as the parent image
-FROM mcr.microsoft.com/dotnet/sdk:7.0
+# Use the base image with Debian 11
+FROM debian:11
+
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y wget
+
+# Download and install the Microsoft package repository
+RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+  && dpkg -i packages-microsoft-prod.deb \
+  && rm packages-microsoft-prod.deb
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Install git
-RUN apt-get update && apt-get install -y vim git
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+  apt-transport-https \
+  dotnet-sdk-7.0
 
-# Clone the Eddie-Bot repository
-RUN git clone https://github.com/just-ero/MensaPlus.Discord.git .
+# Install git and vim
+RUN apt-get update && apt-get install -y git vim
 
-# Restore dependencies and build the application
+RUN git clone https://github.com/just-ero/MensaPlus.Discord
+
+# Change the directory to MensaPlus.Discord
+WORKDIR /app/MensaPlus.Discord
+
 RUN dotnet restore
+
 RUN dotnet build -c Release
 
-# Run the bot
-CMD [ "dotnet", "run"]
+# Set the CMD instruction to start a Bash shell
+CMD ["./src/MensaPlus.Discord/bin/Release/net7.0/MensaPlus.Discord"]

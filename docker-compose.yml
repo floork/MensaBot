@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mensa-bot
+    container_name: test-container
     restart: unless-stopped
     environment:
       - TZ=Europe/Berlin
