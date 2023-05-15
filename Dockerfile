@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0
 WORKDIR /app
 
 # Install git
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y vim git
 
 # Clone the Eddie-Bot repository
 RUN git clone https://github.com/just-ero/MensaPlus.Discord.git .
