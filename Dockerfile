@@ -15,4 +15,4 @@ RUN dotnet restore
 RUN dotnet build -c Release
 
 # Run the bot
-CMD [ "sh MensaPlus.Discord.sh"]
+CMD [ "dotnet", "run"]
